@@ -2,14 +2,15 @@ import requests
 import bs4
 
 def get_website():
-	url = 'https://www.soumu.go.jp/main_sosiki/jichi_gyousei/koumuin_seido/shushoku_hyogaki_shien.html'
-	file = 'notifdata.txt'
+	url = 'https://www.pref.miyazaki.lg.jp/police/licence/update/20200417154936.html'
+	file = 'license.txt'
 
 	res = requests.get(url)
 	res.raise_for_status()
 	soup = bs4.BeautifulSoup(res.content,"html.parser")# Parser
-	elems = soup.find("span",{"class":"aly_tx_f_red"})#最新のタグの中身を取得
+	elems = soup.find("p",{"class":"data text-right"})#最新のタグの中身を取得
 	str_elems = str(elems.string) # stringに変換
+	#print (str_elems)
 	try:
 		f = open(file)
 		old_elems  = f.read()
